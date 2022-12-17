@@ -8,8 +8,8 @@ class Sorter
      * From: https://www.hackerrank.com/challenges/quicksort3/problem
      *
      * @param int $n The length of the array
-     * @param array $arr The array
-     * @return array
+     * @param array<int|string> $arr The array
+     * @return array<int|string>
      */
     public function inPlaceSort(int $n, array $arr): array
     {
@@ -20,6 +20,12 @@ class Sorter
         return $arr;
     }
 
+    /**
+     * @param array<int|string> $arr
+     * @param int $start
+     * @param int $stop
+     * @return void
+     */
     private function singlePass(array &$arr, int $start, int $stop): void
     {
         if ($start === $stop) {
