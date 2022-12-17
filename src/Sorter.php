@@ -9,13 +9,15 @@ class Sorter
      *
      * @param int $n The length of the array
      * @param array $arr The array
-     * @return void
+     * @return array
      */
-    public function inPlaceSort(int $n, array $arr): void
+    public function inPlaceSort(int $n, array $arr): array
     {
-        $this->singlePass($arr, 0, $n - 1);
+        if (!empty($arr)) {
+            $this->singlePass($arr, 0, $n - 1);
+        }
 
-        var_dump($arr);
+        return $arr;
     }
 
     private function singlePass(array &$arr, int $start, int $stop): void
@@ -25,7 +27,6 @@ class Sorter
         }
 
         $pivot = $arr[$stop];
-
         $swappedSmallElements = [];
 
         // swap elements
@@ -48,7 +49,7 @@ class Sorter
 
         // insert pivot
         for ($i = $start; $i < $stop; $i++) {
-            if(!in_array($i, $swappedSmallElements)) {
+            if (!in_array($i, $swappedSmallElements)) {
                 $arr[$stop] = $arr[$i];
                 $arr[$i] = $pivot;
 
@@ -58,7 +59,7 @@ class Sorter
             }
         }
 
-        $this->singlePass($arr, $start, $pivotInsert - 1);
-        $this->singlePass($arr, $pivotInsert + 1, $stop);
+        $this->singlePass($arr, $start, max($start, $pivotInsert - 1));
+        $this->singlePass($arr, min($pivotInsert + 1, $stop), $stop);
     }
 }
